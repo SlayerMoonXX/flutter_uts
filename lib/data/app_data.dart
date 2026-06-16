@@ -71,6 +71,7 @@ const List<String> domisiliList = [
   'Lainnya',
 ];
 
+// ini gw tambahain fungsi ini, ntar tinggal panggil aja di page add student
 String getRandomAvatar() {
   return avatarList[Random().nextInt(avatarList.length)];
 }
