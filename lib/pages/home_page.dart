@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_uts/theme/app_colors.dart';
+import 'package:flutter_uts/theme/app_typography.dart';
+import 'package:flutter_uts/data/app_data.dart';
 
 void main() {
-  // Mengatur warna status bar sistem agar gelap dan menyatu dengan aplikasi
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.light,
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
   runApp(const StudentDirectoryApp());
 }
 
@@ -19,8 +23,7 @@ class StudentDirectoryApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
-        // Warna latar belakang gelap pekat sesuai mockup
-        scaffoldBackgroundColor: const Color(0xFF1C1C1E), 
+        scaffoldBackgroundColor: AppColors.background,
       ),
       home: const StudentDirectoryPage(),
     );
@@ -32,34 +35,7 @@ class StudentDirectoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Data urutan mahasiswa yang disesuaikan persis dengan isi gambar
-    final List<Map<String, String>> students = [
-      {
-        'name': 'Budi Santoso',
-        'region': 'Jakarta Selatan',
-        'gender': 'male',
-      },
-      {
-        'name': 'Sari Dewi',
-        'region': 'Bekasi',
-        'gender': 'female',
-      },
-      {
-        'name': 'Ahmad Fauzi',
-        'region': 'Tangerang Selatan',
-        'gender': 'male',
-      },
-      {
-        'name': 'Rina Kusuma',
-        'region': 'Depok',
-        'gender': 'female',
-      },
-      {
-        'name': 'Dian Pratama',
-        'region': 'Bogor',
-        'gender': 'male',
-      },
-    ];
+    final students = initialStudentsData;
 
     return Scaffold(
       body: SafeArea(
@@ -99,24 +75,34 @@ class StudentDirectoryPage extends StatelessWidget {
                     crossAxisCount: 2, // Membagi menjadi 2 kolom vertikal
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
-                    childAspectRatio: 0.76, // Rasio dimensi kartu agar pas tanpa overflow
+                    childAspectRatio:
+                        0.76, // Rasio dimensi kartu agar pas tanpa overflow
                   ),
                   itemBuilder: (context, index) {
                     final student = students[index];
                     return Container(
                       decoration: BoxDecoration(
-                        color: const Color(0xFF2C2C2E), // Warna abu-abu gelap pembungkus kartu
-                        borderRadius: BorderRadius.circular(24), // Sudut tumpul melengkung halus
+                        color: const Color(
+                          0xFF2C2C2E,
+                        ), // Warna abu-abu gelap pembungkus kartu
+                        borderRadius: BorderRadius.circular(
+                          24,
+                        ), // Sudut tumpul melengkung halus
                       ),
-                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 12,
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // Efek Border/Ring Hijau Toska Lingkaran Foto Profil
                           Container(
-                            padding: const EdgeInsets.all(3.5), 
+                            padding: const EdgeInsets.all(3.5),
                             decoration: const BoxDecoration(
-                              color: Color(0xFF00C292), // Warna hijau cerah khusus ring luar
+                              color: Color(
+                                0xFF00C292,
+                              ), // Warna hijau cerah khusus ring luar
                               shape: BoxShape.circle,
                             ),
                             child: CircleAvatar(
@@ -124,7 +110,7 @@ class StudentDirectoryPage extends StatelessWidget {
                               backgroundColor: const Color(0xFF1C1C1E),
                               backgroundImage: NetworkImage(
                                 student['gender'] == 'male'
-                                    ? 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150' 
+                                    ? 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150'
                                     : 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
                               ),
                             ),
@@ -149,7 +135,9 @@ class StudentDirectoryPage extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 13,
-                              color: Color(0xFF8E8E93), // Warna abu-abu pudar teks deskripsi
+                              color: Color(
+                                0xFF8E8E93,
+                              ), // Warna abu-abu pudar teks deskripsi
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -157,9 +145,14 @@ class StudentDirectoryPage extends StatelessWidget {
                           const SizedBox(height: 12),
                           // Pill Button Status Aktif
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 6),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 22,
+                              vertical: 6,
+                            ),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF1A80E6), // Warna biru solid tombol "Aktif"
+                              color: const Color(
+                                0xFF1A80E6,
+                              ), // Warna biru solid tombol "Aktif"
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: const Text(
@@ -191,20 +184,19 @@ class StudentDirectoryPage extends StatelessWidget {
             onPressed: () {
               // Tempat menaruh fungsi aksi ketika tombol tambah diklik
             },
-            backgroundColor: const Color(0xFF00C292), // Hijau cerah matching ring profil
+            backgroundColor: const Color(
+              0xFF00C292,
+            ), // Hijau cerah matching ring profil
             elevation: 4,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), // Bentuk kotak membulat persis gambar
+              borderRadius: BorderRadius.circular(
+                20,
+              ), // Bentuk kotak membulat persis gambar
             ),
-            child: const Icon(
-              Icons.add,
-              color: Colors.white,
-              size: 32,
-            ),
+            child: const Icon(Icons.add, color: Colors.white, size: 32),
           ),
         ),
       ),
     );
   }
 }
- 
