@@ -131,7 +131,7 @@ class StudentDirectoryPage extends StatelessWidget {
                           const SizedBox(height: 4),
                           // Asal Daerah / Domisili
                           Text(
-                            student['region']!,
+                            student['domisili'] ?? '',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 13,
