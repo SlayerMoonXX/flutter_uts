@@ -114,11 +114,8 @@ class StudentDirectoryPage extends StatelessWidget {
                           Text(
                             student['name']!,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                            style: AppTypography.subHeadlineExtraBold,
+                            selectionColor: AppColors.textPrimary,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -127,12 +124,8 @@ class StudentDirectoryPage extends StatelessWidget {
                           Text(
                             student['domisili'] ?? '',
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              color: Color(
-                                0xFF8E8E93,
-                              ), // Warna abu-abu pudar teks deskripsi
-                            ),
+                            style: AppTypography.textRegular,
+                            selectionColor: AppColors.text,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -144,18 +137,14 @@ class StudentDirectoryPage extends StatelessWidget {
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(
-                                0xFF1A80E6,
-                              ), // Warna biru solid tombol "Aktif"
+                              color: AppColors.bluePrimary, // Warna biru solid tombol "Aktif"
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Text(
+                            child:  Text(
                               'Aktif',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                              style: AppTypography.textSemiBold,
+                              selectionColor: AppColors.textPrimary,
+
                             ),
                           ),
                         ],
