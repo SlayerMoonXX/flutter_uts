@@ -71,68 +71,79 @@ class StudentDirectoryPage extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) {
                     final student = students[index];
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.card,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20,
-                        horizontal: 12,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(4),
-                            decoration: const BoxDecoration(
-                              color: AppColors.greenPrimary,
-                              shape: BoxShape.circle,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          "/profile",
+                          arguments: index,
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.card,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 12,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: const BoxDecoration(
+                                color: AppColors.greenPrimary,
+                                shape: BoxShape.circle,
+                              ),
+                              child: CircleAvatar(
+                                radius: 40,
+                                backgroundColor: AppColors.background,
+                                backgroundImage: NetworkImage(
+                                  student['avatar']!,
+                                ),
+                              ),
                             ),
-                            child: CircleAvatar(
-                              radius: 40,
-                              backgroundColor: AppColors.background,
-                              backgroundImage: NetworkImage(student['avatar']!),
-                            ),
-                          ),
-                          const SizedBox(height: 12),
+                            const SizedBox(height: 12),
 
-                          Text(
-                            student['name']!,
-                            textAlign: TextAlign.center,
-                            style: AppTypography.subHeadlineExtraBold,
-                            selectionColor: AppColors.textPrimary,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 4),
-
-                          Text(
-                            student['domisili'] ?? '',
-                            textAlign: TextAlign.center,
-                            style: AppTypography.textRegular,
-                            selectionColor: AppColors.text,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 12),
-
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 22,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.bluePrimary,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              'Aktif',
-                              style: AppTypography.textSemiBold,
+                            Text(
+                              student['name']!,
+                              textAlign: TextAlign.center,
+                              style: AppTypography.subHeadlineExtraBold,
                               selectionColor: AppColors.textPrimary,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 4),
+
+                            Text(
+                              student['domisili'] ?? '',
+                              textAlign: TextAlign.center,
+                              style: AppTypography.textRegular,
+                              selectionColor: AppColors.text,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 12),
+
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 22,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.bluePrimary,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                'Aktif',
+                                style: AppTypography.textSemiBold,
+                                selectionColor: AppColors.textPrimary,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -149,10 +160,7 @@ class StudentDirectoryPage extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: const Border(
-              bottom: BorderSide(
-                color: AppColors.greenSecondary,
-                width: 6,
-              ),
+              bottom: BorderSide(color: AppColors.greenSecondary, width: 6),
             ),
           ),
           child: SizedBox(
@@ -165,7 +173,11 @@ class StudentDirectoryPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: const Icon(Icons.add, color: AppColors.textPrimary, size: 32),
+              child: const Icon(
+                Icons.add,
+                color: AppColors.textPrimary,
+                size: 32,
+              ),
             ),
           ),
         ),
