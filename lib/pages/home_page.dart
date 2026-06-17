@@ -47,7 +47,7 @@ class StudentDirectoryPage extends StatelessWidget {
               const SizedBox(height: 24),
               // Header: Icon Topi Toga + Teks Student Directory
               Row(
-                children: const [
+                children: [
                   Icon(
                     Icons.school, // Icon representasi topi toga
                     color: Colors.white,
@@ -56,12 +56,8 @@ class StudentDirectoryPage extends StatelessWidget {
                   SizedBox(width: 14),
                   Text(
                     'Student Directory',
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: -0.5,
-                    ),
+                    style: AppTypography.headlineExtraBold,
+                    selectionColor: AppColors.textPrimary,
                   ),
                 ],
               ),
@@ -109,9 +105,7 @@ class StudentDirectoryPage extends StatelessWidget {
                               radius: 40,
                               backgroundColor: const Color(0xFF1C1C1E),
                               backgroundImage: NetworkImage(
-                                student['gender'] == 'male'
-                                    ? 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150'
-                                    : 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
+                                student['avatar']!
                               ),
                             ),
                           ),
