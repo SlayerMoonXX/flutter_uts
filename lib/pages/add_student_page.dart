@@ -54,218 +54,204 @@ class _AddStudentPageState extends State<AddStudentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
+    // GestureDetector untuk menghilangkan fokus keyboard saat tap di luar area input
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
         backgroundColor: AppColors.background,
-        elevation: 0,
-        leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Container(
-            margin: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: AppColors.greenPrimary,
-              borderRadius: BorderRadius.circular(10),
+        appBar: AppBar(
+          backgroundColor: AppColors.background,
+          elevation: 0,
+          leading: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: AppColors.greenPrimary,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
             ),
-            child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+          ),
+          title: Text(
+            'Tambah Mahasiswa',
+            style: AppTypography.headlineBold.copyWith(
+              color: Colors.white,
+            ),
           ),
         ),
-        title: Text(
-          'Tambah Mahasiswa',
-          style: AppTypography.headlineBold.copyWith(
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                // Avatar
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppColors.greenPrimary,
-                      width: 3,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  // Avatar (Tanpa Glow, Border Hijau Solid)
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
                         color: AppColors.greenPrimary,
-                        blurRadius: 20,
-                        spreadRadius: 2,
+                        width: 3,
                       ),
-                    ],
-                  ),
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundColor: const Color(0xFF2E2E4E),
-                    child: ClipOval(
-                      child: CachedNetworkImage(
-                        imageUrl: _selectedAvatar,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                        placeholder: (_, __) => const Icon(
-                          Icons.person,
-                          color: Color(0xFF888888),
-                          size: 44,
-                        ),
-                        errorWidget: (_, __, ___) => const Icon(
-                          Icons.person,
-                          color: Color(0xFF888888),
-                          size: 44,
+                    ),
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundColor: AppColors.card,
+                      child: ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl: _selectedAvatar,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                          placeholder: (_, __) => const Icon(
+                            Icons.person,
+                            color: AppColors.textSecondary,
+                            size: 44,
+                          ),
+                          errorWidget: (_, __, ___) => const Icon(
+                            Icons.person,
+                            color: AppColors.textSecondary,
+                            size: 44,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 28),
+                  const SizedBox(height: 28),
 
-                // Form Card with blue dashed border
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: AppColors.card,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: AppColors.bluePrimary.withOpacity(0.6),
-                      width: 1.5,
+                  // Form Card (Tanpa Border Card & Tanpa Shadow)
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: AppColors.card,
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.bluePrimary.withOpacity(0.08),
-                        blurRadius: 20,
-                        spreadRadius: 0,
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Nama
-                      _buildLabel('Nama Lengkap'),
-                      const SizedBox(height: 8),
-                      _buildTextField(
-                        controller: _nameController,
-                        hintText: 'Contoh: Joko Widudu',
-                        suffixIcon: Icons.person_outline,
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Mohon masukkan nama lengkap';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 18),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Nama Lengkap
+                        _buildLabel('Nama Lengkap'),
+                        const SizedBox(height: 8),
+                        _buildTextField(
+                          controller: _nameController,
+                          hintText: 'Contoh: Joko Widudu',
+                          suffixIcon: Icons.person_outline,
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Mohon masukkan nama lengkap';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 18),
 
-                      // Domisili
-                      _buildLabel('Domisili'),
-                      const SizedBox(height: 8),
-                      _buildDropdown(),
-                      const SizedBox(height: 18),
+                        // Domisili
+                        _buildLabel('Domisili'),
+                        const SizedBox(height: 8),
+                        _buildDropdown(),
+                        const SizedBox(height: 18),
 
-                      // Nomor HP
-                      _buildLabel('Nomor Telepon'),
-                      const SizedBox(height: 8),
-                      _buildTextField(
-                        controller: _phoneController,
-                        hintText: 'Masukkan nomor telepon',
-                        suffixIcon: Icons.phone_outlined,
-                        keyboardType: TextInputType.phone,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Mohon masukkan nomor telepon';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 18),
-
-                      // Consent checkbox
-                      GestureDetector(
-                        onTap: () =>
-                            setState(() => _consentChecked = !_consentChecked),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 22,
-                              height: 22,
-                              child: Checkbox(
-                                value: _consentChecked,
-                                onChanged: (val) => setState(
-                                    () => _consentChecked = val ?? false),
-                                activeColor: const Color(0xFF2979FF),
-                                checkColor: Colors.white,
-                                side: const BorderSide(
-                                  color: Color(0xFF2979FF),
-                                  width: 1.5,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Text(
-                                'Saya menyatakan bahwa data yang saya masukkan adalah benar.',
-                                style: TextStyle(
-                                  color: Colors.white.withOpacity(0.75),
-                                  fontSize: 12.5,
-                                  height: 1.4,
-                                ),
-                              ),
-                            ),
+                        // Nomor Telepon
+                        _buildLabel('Nomor Telepon'),
+                        const SizedBox(height: 8),
+                        _buildTextField(
+                          controller: _phoneController,
+                          hintText: 'Masukkan nomor telepon',
+                          suffixIcon: Icons.phone_outlined,
+                          keyboardType: TextInputType.phone,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
                           ],
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Mohon masukkan nomor telepon';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 18),
+
+                        // Consent checkbox
+                        GestureDetector(
+                          onTap: () =>
+                              setState(() => _consentChecked = !_consentChecked),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: Checkbox(
+                                  value: _consentChecked,
+                                  onChanged: (val) => setState(
+                                      () => _consentChecked = val ?? false),
+                                  activeColor: AppColors.bluePrimary,
+                                  checkColor: Colors.white,
+                                  side: const BorderSide(
+                                    color: AppColors.bluePrimary,
+                                    width: 1.5,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  'Saya menyatakan bahwa data yang saya masukkan adalah benar.',
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.75),
+                                    fontSize: 12.5,
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 90),
+
+                  // Submit button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 54,
+                    child: ElevatedButton.icon(
+                      // Tombol hanya bisa diklik jika consentChecked bernilai true
+                      onPressed: _consentChecked ? _submit : null,
+                      icon: const Icon(Icons.person_add_alt_1, size: 20),
+                      label: const Text(
+                        'Tambahkan Mahasiswa',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.3,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 28),
-
-                // Submit button
-                SizedBox(
-                  width: double.infinity,
-                  height: 54,
-                  child: ElevatedButton.icon(
-                    onPressed: _consentChecked ? _submit : null,
-                    icon: const Icon(Icons.person_add_rounded, size: 18),
-                    label: const Text(
-                      'Tambahkan Mahasiswa',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.3,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.bluePrimary,
+                        disabledBackgroundColor: const Color(0xFF2E2E4E),
+                        foregroundColor: Colors.white,
+                        disabledForegroundColor: Colors.white.withOpacity(0.3),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2979FF),
-                      disabledBackgroundColor: const Color(0xFF2E2E4E),
-                      foregroundColor: Colors.white,
-                      disabledForegroundColor: Colors.white.withOpacity(0.3),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      shadowColor: const Color(0xFF2979FF).withOpacity(0.4),
-                    ),
                   ),
-                ),
-                const SizedBox(height: 24),
-              ],
+                  const SizedBox(height: 24),
+                ],
+              ),
             ),
           ),
         ),
@@ -282,6 +268,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
     );
   }
 
+  // Fungsi TextField yang sudah dimodifikasi dengan icon error dan border biru
   Widget _buildTextField({
     required TextEditingController controller,
     required String hintText,
@@ -290,106 +277,132 @@ class _AddStudentPageState extends State<AddStudentPage> {
     List<TextInputFormatter>? inputFormatters,
     String? Function(String?)? validator,
   }) {
-    return TextFormField(
-      controller: controller,
-      style: AppTypography.textRegular.copyWith(color: AppColors.textPrimary),
-      keyboardType: keyboardType,
-      inputFormatters: inputFormatters,
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: TextStyle(
-          color: AppColors.textSecondary,
-          fontSize: 14,
-        ),
-        filled: true,
-        fillColor: AppColors.card,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        suffixIcon: Icon(
-          suffixIcon,
-          color: AppColors.textSecondary,
-          size: 19,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: Colors.white.withOpacity(0.1),
-            width: 1,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: Colors.white.withOpacity(0.1),
-            width: 1,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Color(0xFF2979FF),
-            width: 1.5,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.redAccent, width: 1),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.redAccent, width: 1.5),
-        ),
-        errorStyle: const TextStyle(color: Colors.redAccent, fontSize: 11),
-      ),
+    return FormField<String>(
+      initialValue: controller.text,
       validator: validator,
+      builder: (FormFieldState<String> state) {
+        return TextField(
+          controller: controller,
+          style: AppTypography.textRegular.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
+          keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
+          onChanged: (val) {
+            state.didChange(val); 
+          },
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: const TextStyle(
+              color: AppColors.textSecondary, // Warna Hint yang bisa dibaca
+              fontSize: 14,
+            ),
+            filled: true,
+            fillColor: AppColors.background,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            suffixIcon: Icon(
+              suffixIcon,
+              color: AppColors.textSecondary,
+              size: 19,
+            ),
+            
+            // Icon Tanda Seru Merah saat Error
+// Icon Tanda Seru Merah saat Error
+            error: state.hasError
+                ? Transform.translate(
+                    // 👇 Offset(X, Y)
+                    // X = Geser kiri/kanan (Minus = Kiri, Positif = Kanan)
+                    // Y = Geser atas/bawah (Minus = Atas, Positif = Bawah)
+                    offset: const Offset(-16.0, 0), // Contoh: Geser paksa 8 pixel ke kiri
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.info_outline_rounded,
+                          color: AppColors.redPrimary,
+                          size: 16,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          state.errorText ?? '',
+                          style: const TextStyle(
+                            color: AppColors.redPrimary,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : null,
+
+            // Semua border diatur menjadi warna BIRU
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: AppColors.bluePrimary, width: 1.5),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: AppColors.gray, width: 1.5),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: AppColors.bluePrimary, width: 1.5),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: AppColors.redPrimary, width: 1.5),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: AppColors.redPrimary, width: 1.5),
+            ),
+          ),
+        );
+      },
     );
   }
 
   Widget _buildDropdown() {
     return DropdownButtonFormField<String>(
       value: _selectedDomisili,
-      dropdownColor: const Color(0xFF23234A),
-      style: const TextStyle(color: Colors.white, fontSize: 14),
-      icon: Icon(
+      dropdownColor: AppColors.card,
+      style: AppTypography.textRegular.copyWith(color: AppColors.textPrimary),
+      icon: const Icon(
         Icons.keyboard_arrow_down_rounded,
-        color: Colors.white.withOpacity(0.4),
+        color: AppColors.textSecondary,
       ),
-      decoration: InputDecoration(
-        hintText: 'Pilih kota tempat tinggal',
-        hintStyle: TextStyle(
-          color: Colors.white.withOpacity(0.35),
+      
+      // Menggunakan properti hint agar warnanya pasti berubah
+      hint: const Text(
+        'Pilih kota tempat tinggal',
+        style: TextStyle(
+          color: AppColors.textSecondary, // Warna Hint yang bisa dibaca
           fontSize: 14,
         ),
+      ),
+
+      decoration: InputDecoration(
         filled: true,
-        fillColor: const Color(0xFF23234A),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        fillColor: AppColors.background,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        
+        // Semua border diatur menjadi warna BIRU
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: Colors.white.withOpacity(0.1),
-            width: 1,
-          ),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: AppColors.gray, width: 1.5),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: Colors.white.withOpacity(0.1),
-            width: 1,
-          ),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: AppColors.gray, width: 1.5),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Color(0xFF2979FF),
-            width: 1.5,
-          ),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: AppColors.bluePrimary, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.redAccent, width: 1),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: AppColors.redPrimary, width: 1.5),
         ),
-        errorStyle: const TextStyle(color: Colors.redAccent, fontSize: 11),
+        errorStyle: const TextStyle(color: AppColors.redPrimary, fontSize: 11),
       ),
       items: domisiliList
           .map((d) => DropdownMenuItem(
