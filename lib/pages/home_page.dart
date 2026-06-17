@@ -45,14 +45,10 @@ class StudentDirectoryPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 24),
-              // Header: Icon Topi Toga + Teks Student Directory
+
               Row(
                 children: [
-                  Icon(
-                    Icons.school, // Icon representasi topi toga
-                    color: Colors.white,
-                    size: 32,
-                  ),
+                  Icon(Icons.school, color: Colors.white, size: 32),
                   SizedBox(width: 14),
                   Text(
                     'Student Directory',
@@ -62,28 +58,23 @@ class StudentDirectoryPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 24),
-              // Grid Layout Komponen Kartu Mahasiswa
+
               Expanded(
                 child: GridView.builder(
                   itemCount: students.length,
                   physics: const BouncingScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Membagi menjadi 2 kolom vertikal
+                    crossAxisCount: 2,
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
-                    childAspectRatio:
-                        0.76, // Rasio dimensi kartu agar pas tanpa overflow
+                    childAspectRatio: 0.76,
                   ),
                   itemBuilder: (context, index) {
                     final student = students[index];
                     return Container(
                       decoration: BoxDecoration(
-                        color: const Color(
-                          0xFF2C2C2E,
-                        ), // Warna abu-abu gelap pembungkus kartu
-                        borderRadius: BorderRadius.circular(
-                          24,
-                        ), // Sudut tumpul melengkung halus
+                        color: const Color(0xFF2C2C2E),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       padding: const EdgeInsets.symmetric(
                         vertical: 20,
@@ -92,25 +83,20 @@ class StudentDirectoryPage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Efek Border/Ring Hijau Toska Lingkaran Foto Profil
                           Container(
-                            padding: const EdgeInsets.all(3.5),
+                            padding: const EdgeInsets.all(4),
                             decoration: const BoxDecoration(
-                              color: Color(
-                                0xFF00C292,
-                              ), // Warna hijau cerah khusus ring luar
+                              color: Color(0xFF00C292),
                               shape: BoxShape.circle,
                             ),
                             child: CircleAvatar(
                               radius: 40,
                               backgroundColor: const Color(0xFF1C1C1E),
-                              backgroundImage: NetworkImage(
-                                student['avatar']!
-                              ),
+                              backgroundImage: NetworkImage(student['avatar']!),
                             ),
                           ),
                           const SizedBox(height: 14),
-                          // Nama Lengkap Mahasiswa
+
                           Text(
                             student['name']!,
                             textAlign: TextAlign.center,
@@ -120,7 +106,7 @@ class StudentDirectoryPage extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 4),
-                          // Asal Daerah / Domisili
+
                           Text(
                             student['domisili'] ?? '',
                             textAlign: TextAlign.center,
@@ -130,21 +116,20 @@ class StudentDirectoryPage extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 12),
-                          // Pill Button Status Aktif
+
                           Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 22,
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: AppColors.bluePrimary, // Warna biru solid tombol "Aktif"
+                              color: AppColors.bluePrimary,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child:  Text(
+                            child: Text(
                               'Aktif',
                               style: AppTypography.textSemiBold,
                               selectionColor: AppColors.textPrimary,
-
                             ),
                           ),
                         ],
@@ -157,24 +142,18 @@ class StudentDirectoryPage extends StatelessWidget {
           ),
         ),
       ),
-      // Floating Action Button (FAB) Kustom Hijau Toska di Pojok Kanan Bawah
+
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 6.0, bottom: 10.0),
         child: SizedBox(
           width: 64,
           height: 64,
           child: FloatingActionButton(
-            onPressed: () {
-              // Tempat menaruh fungsi aksi ketika tombol tambah diklik
-            },
-            backgroundColor: const Color(
-              0xFF00C292,
-            ), // Hijau cerah matching ring profil
+            onPressed: () {},
+            backgroundColor: const Color(0xFF00C292),
             elevation: 4,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                20,
-              ), // Bentuk kotak membulat persis gambar
+              borderRadius: BorderRadius.circular(20),
             ),
             child: const Icon(Icons.add, color: Colors.white, size: 32),
           ),
