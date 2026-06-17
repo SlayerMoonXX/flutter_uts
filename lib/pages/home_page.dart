@@ -95,7 +95,7 @@ class StudentDirectoryPage extends StatelessWidget {
                               backgroundImage: NetworkImage(student['avatar']!),
                             ),
                           ),
-                          const SizedBox(height: 14),
+                          const SizedBox(height: 12),
 
                           Text(
                             student['name']!,
@@ -124,7 +124,7 @@ class StudentDirectoryPage extends StatelessWidget {
                             ),
                             decoration: BoxDecoration(
                               color: AppColors.bluePrimary,
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
                               'Aktif',
