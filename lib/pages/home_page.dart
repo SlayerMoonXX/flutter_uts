@@ -147,7 +147,7 @@ class StudentDirectoryPage extends StatelessWidget {
         padding: const EdgeInsets.only(right: 6.0, bottom: 10.0),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(20),
             border: const Border(
               bottom: BorderSide(
                 color: AppColors.greenSecondary,
@@ -161,7 +161,7 @@ class StudentDirectoryPage extends StatelessWidget {
             child: FloatingActionButton(
               onPressed: () {},
               backgroundColor: AppColors.greenPrimary,
-              elevation: 4,
+              elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
