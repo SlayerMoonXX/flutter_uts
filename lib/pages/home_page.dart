@@ -73,7 +73,7 @@ class StudentDirectoryPage extends StatelessWidget {
                     final student = students[index];
                     return Container(
                       decoration: BoxDecoration(
-                        color: const Color(0xFF2C2C2E),
+                        color: AppColors.card,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       padding: const EdgeInsets.symmetric(
@@ -86,12 +86,12 @@ class StudentDirectoryPage extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.all(4),
                             decoration: const BoxDecoration(
-                              color: Color(0xFF00C292),
+                              color: AppColors.greenPrimary,
                               shape: BoxShape.circle,
                             ),
                             child: CircleAvatar(
                               radius: 40,
-                              backgroundColor: const Color(0xFF1C1C1E),
+                              backgroundColor: AppColors.background,
                               backgroundImage: NetworkImage(student['avatar']!),
                             ),
                           ),
@@ -145,17 +145,28 @@ class StudentDirectoryPage extends StatelessWidget {
 
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 6.0, bottom: 10.0),
-        child: SizedBox(
-          width: 64,
-          height: 64,
-          child: FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: const Color(0xFF00C292),
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: const Border(
+              bottom: BorderSide(
+                color: AppColors.greenSecondary,
+                width: 6,
+              ),
             ),
-            child: const Icon(Icons.add, color: Colors.white, size: 32),
+          ),
+          child: SizedBox(
+            width: 64,
+            height: 64,
+            child: FloatingActionButton(
+              onPressed: () {},
+              backgroundColor: AppColors.greenPrimary,
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: const Icon(Icons.add, color: AppColors.textPrimary, size: 32),
+            ),
           ),
         ),
       ),
