@@ -45,49 +45,36 @@ class StudentDirectoryPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 24),
-              // Header: Icon Topi Toga + Teks Student Directory
+
               Row(
-                children: const [
-                  Icon(
-                    Icons.school, // Icon representasi topi toga
-                    color: Colors.white,
-                    size: 32,
-                  ),
+                children: [
+                  Icon(Icons.school, color: Colors.white, size: 32),
                   SizedBox(width: 14),
                   Text(
                     'Student Directory',
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: -0.5,
-                    ),
+                    style: AppTypography.headlineExtraBold,
+                    selectionColor: AppColors.textPrimary,
                   ),
                 ],
               ),
               const SizedBox(height: 24),
-              // Grid Layout Komponen Kartu Mahasiswa
+
               Expanded(
                 child: GridView.builder(
                   itemCount: students.length,
                   physics: const BouncingScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Membagi menjadi 2 kolom vertikal
+                    crossAxisCount: 2,
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
-                    childAspectRatio:
-                        0.76, // Rasio dimensi kartu agar pas tanpa overflow
+                    childAspectRatio: 0.76,
                   ),
                   itemBuilder: (context, index) {
                     final student = students[index];
                     return Container(
                       decoration: BoxDecoration(
-                        color: const Color(
-                          0xFF2C2C2E,
-                        ), // Warna abu-abu gelap pembungkus kartu
-                        borderRadius: BorderRadius.circular(
-                          24,
-                        ), // Sudut tumpul melengkung halus
+                        color: AppColors.card,
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       padding: const EdgeInsets.symmetric(
                         vertical: 20,
@@ -96,72 +83,53 @@ class StudentDirectoryPage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Efek Border/Ring Hijau Toska Lingkaran Foto Profil
                           Container(
-                            padding: const EdgeInsets.all(3.5),
+                            padding: const EdgeInsets.all(4),
                             decoration: const BoxDecoration(
-                              color: Color(
-                                0xFF00C292,
-                              ), // Warna hijau cerah khusus ring luar
+                              color: AppColors.greenPrimary,
                               shape: BoxShape.circle,
                             ),
                             child: CircleAvatar(
                               radius: 40,
-                              backgroundColor: const Color(0xFF1C1C1E),
-                              backgroundImage: NetworkImage(
-                                student['gender'] == 'male'
-                                    ? 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150'
-                                    : 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
-                              ),
+                              backgroundColor: AppColors.background,
+                              backgroundImage: NetworkImage(student['avatar']!),
                             ),
                           ),
-                          const SizedBox(height: 14),
-                          // Nama Lengkap Mahasiswa
+                          const SizedBox(height: 12),
+
                           Text(
                             student['name']!,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                            style: AppTypography.subHeadlineExtraBold,
+                            selectionColor: AppColors.textPrimary,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 4),
-                          // Asal Daerah / Domisili
+
                           Text(
                             student['domisili'] ?? '',
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              color: Color(
-                                0xFF8E8E93,
-                              ), // Warna abu-abu pudar teks deskripsi
-                            ),
+                            style: AppTypography.textRegular,
+                            selectionColor: AppColors.text,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 12),
-                          // Pill Button Status Aktif
+
                           Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 22,
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(
-                                0xFF1A80E6,
-                              ), // Warna biru solid tombol "Aktif"
-                              borderRadius: BorderRadius.circular(10),
+                              color: AppColors.bluePrimary,
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Text(
+                            child: Text(
                               'Aktif',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                              style: AppTypography.textSemiBold,
+                              selectionColor: AppColors.textPrimary,
                             ),
                           ),
                         ],
@@ -174,26 +142,31 @@ class StudentDirectoryPage extends StatelessWidget {
           ),
         ),
       ),
-      // Floating Action Button (FAB) Kustom Hijau Toska di Pojok Kanan Bawah
+
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 6.0, bottom: 10.0),
-        child: SizedBox(
-          width: 64,
-          height: 64,
-          child: FloatingActionButton(
-            onPressed: () {
-              // Tempat menaruh fungsi aksi ketika tombol tambah diklik
-            },
-            backgroundColor: const Color(
-              0xFF00C292,
-            ), // Hijau cerah matching ring profil
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                20,
-              ), // Bentuk kotak membulat persis gambar
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: const Border(
+              bottom: BorderSide(
+                color: AppColors.greenSecondary,
+                width: 6,
+              ),
             ),
-            child: const Icon(Icons.add, color: Colors.white, size: 32),
+          ),
+          child: SizedBox(
+            width: 64,
+            height: 64,
+            child: FloatingActionButton(
+              onPressed: () {},
+              backgroundColor: AppColors.greenPrimary,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: const Icon(Icons.add, color: AppColors.textPrimary, size: 32),
+            ),
           ),
         ),
       ),
