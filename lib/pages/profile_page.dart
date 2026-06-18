@@ -153,6 +153,20 @@ class _ProfileState extends State<ProfilePage> {
             //Buton Hapus
             GestureDetector(
               onTap: () {
+                if (initialStudentsData.length <= 3) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Gagal menghapus. Jumlah mahasiswa telah mencapai batas minimum yang diwajibkan',
+                      ),
+                      backgroundColor: AppColors.redPrimary,
+                      behavior: SnackBarBehavior.floating,
+                      duration: Duration(seconds: 1),
+                      dismissDirection: DismissDirection.horizontal,
+                    ),
+                  );
+                  return;
+                }
                 initialStudentsData.removeAt(index);
                 Navigator.pop(context, true);
               },
