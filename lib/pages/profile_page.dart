@@ -17,6 +17,17 @@ class _ProfileState extends State<ProfilePage> {
     final student = initialStudentsData[index];
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: AppColors.greenPrimary,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+            ),
+          ),
         centerTitle: true,
         title: Text(
           "Student Profile",
