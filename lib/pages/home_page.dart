@@ -14,8 +14,8 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
   @override
   Widget build(BuildContext context) {
     // Membaca data langsung dari variabel global initialStudentsData
-    var students = initialStudentsData; 
-    
+    var students = initialStudentsData;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -27,7 +27,11 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
 
               Row(
                 children: [
-                  const Icon(Icons.school, color: AppColors.textPrimary, size: 32),
+                  const Icon(
+                    Icons.school,
+                    color: AppColors.textPrimary,
+                    size: 32,
+                  ),
                   const SizedBox(width: 14),
                   Text(
                     'Student Directory',
@@ -57,10 +61,22 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
                           "/profile",
                           arguments: index,
                         );
+
+                        if (!context.mounted) {
+                          return;
+                        } //Guard Check keaktifan widget
                         if (result == true) {
                           setState(() {
                             students = List.from(initialStudentsData);
                           });
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Profil siswa berhasil dihapus'),
+                              backgroundColor: AppColors.greenPrimary,
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          );
                         }
                       },
                       child: Container(
@@ -152,7 +168,10 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
             height: 64,
             child: FloatingActionButton(
               onPressed: () async {
-                final result = await Navigator.pushNamed(context, "/add_student");
+                final result = await Navigator.pushNamed(
+                  context,
+                  "/add_student",
+                );
 
                 if (result != null) {
                   setState(() {
@@ -166,16 +185,18 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
                 }
 
                 if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('${(result as dynamic).name} berhasil ditambahkan!'),
-                        backgroundColor: AppColors.greenPrimary,
-                        behavior: SnackBarBehavior.floating,
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        '${(result as dynamic).name} berhasil ditambahkan!',
                       ),
-                    );
-                  }
+                      backgroundColor: AppColors.greenPrimary,
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
+                }
               },
-              
+
               backgroundColor: AppColors.greenPrimary,
               elevation: 0,
               shape: RoundedRectangleBorder(
