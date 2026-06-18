@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_uts/pages/home_page.dart';
 import 'package:flutter_uts/pages/profile_page.dart';
+import 'package:flutter_uts/pages/add_student_page.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_uts/theme/app_colors.dart';
 
@@ -31,6 +32,7 @@ class StudentDirectoryApp extends StatelessWidget {
       routes: {
         "/home": (context) => const StudentDirectoryPage(),
         "/profile": (context) => const ProfilePage(),
+        "/add_student": (context) => const AddStudentPage(),
       },
     
     );

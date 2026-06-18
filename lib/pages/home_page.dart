@@ -13,7 +13,9 @@ class StudentDirectoryPage extends StatefulWidget {
 class _StudentDirectoryState extends State<StudentDirectoryPage> {
   @override
   Widget build(BuildContext context) {
-    var students = initialStudentsData;
+    // Membaca data langsung dari variabel global initialStudentsData
+    var students = initialStudentsData; 
+    
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -25,8 +27,8 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
 
               Row(
                 children: [
-                  Icon(Icons.school, color: AppColors.textPrimary, size: 32),
-                  SizedBox(width: 14),
+                  const Icon(Icons.school, color: AppColors.textPrimary, size: 32),
+                  const SizedBox(width: 14),
                   Text(
                     'Student Directory',
                     style: AppTypography.headlineExtraBold,
@@ -55,9 +57,10 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
                           "/profile",
                           arguments: index,
                         );
-                        //Klo student dihapus
+                        // Kalau student dihapus dari halaman profile
                         if (result == true) {
                           setState(() {
+                            // UI akan di-render ulang dengan data terbaru
                             students = List.from(initialStudentsData);
                           });
                         }
@@ -150,7 +153,36 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
             width: 64,
             height: 64,
             child: FloatingActionButton(
-              onPressed: () {},
+              // 👇 UBAH FUNGSI INI MENJADI ASYNC
+              onPressed: () async {
+                // 1. Tunggu data kembalian dari halaman Add Student
+                final result = await Navigator.pushNamed(context, "/add_student");
+
+                // 2. Cek jika result tidak null (artinya user menekan tombol Tambah, bukan tombol Back)
+                if (result != null) {
+                  setState(() {
+                    // 3. Masukkan data ke dalam list global initialStudentsData.
+                    // Karena AddStudentPage me-return object 'Student', kita ekstrak menjadi bentuk Map.
+                    initialStudentsData.add({
+                      'name': (result as dynamic).name,
+                      'avatar': (result as dynamic).avatar,
+                      'domisili': (result as dynamic).domisili,
+                      'phone': (result as dynamic).phone,
+                    });
+                  });
+                  
+                  // Opsional: Tampilkan notifikasi sukses
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('${(result as dynamic).name} berhasil ditambahkan!'),
+                        backgroundColor: AppColors.greenPrimary,
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  }
+                }
+              },
               backgroundColor: AppColors.greenPrimary,
               elevation: 0,
               shape: RoundedRectangleBorder(

@@ -17,6 +17,7 @@ class _ProfileState extends State<ProfilePage> {
     final student = initialStudentsData[index];
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.background,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Container(
