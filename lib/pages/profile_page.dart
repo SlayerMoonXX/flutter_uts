@@ -18,16 +18,16 @@ class _ProfileState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: AppColors.greenPrimary,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: AppColors.greenPrimary,
+              borderRadius: BorderRadius.circular(8),
             ),
+            child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
           ),
+        ),
         centerTitle: true,
         title: Text(
           "Student Profile",
@@ -150,26 +150,33 @@ class _ProfileState extends State<ProfilePage> {
             ),
             const SizedBox(height: 69),
             //Buton Hapus
-            Container(
-              padding: EdgeInsets.all(16),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: AppColors.redPrimary,
-              ),
-              child: Row(
-                mainAxisAlignment: .center,
-                children: [
-                  Icon(Icons.delete, size: 20, color: AppColors.textPrimary),
-                  const SizedBox(width: 8),
-                  Text(
-                    "Hapus Akun",
-                    style: AppTypography.subHeadlineBold,
-                    selectionColor: AppColors.textPrimary,
-                  ),
-                ],
+            GestureDetector(
+              onTap: () {
+                initialStudentsData.removeAt(index);
+                Navigator.pop(context, true);
+              },
+              child: Container(
+                padding: EdgeInsets.all(16),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: AppColors.redPrimary,
+                ),
+                child: Row(
+                  mainAxisAlignment: .center,
+                  children: [
+                    Icon(Icons.delete, size: 20, color: AppColors.textPrimary),
+                    const SizedBox(width: 8),
+                    Text(
+                      "Hapus Akun",
+                      style: AppTypography.subHeadlineBold,
+                      selectionColor: AppColors.textPrimary,
+                    ),
+                  ],
+                ),
               ),
             ),
+
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: .center,

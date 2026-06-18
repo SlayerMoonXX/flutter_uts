@@ -1,6 +1,6 @@
 import 'dart:math';
 
-const List<Map<String, String>> initialStudentsData = [
+List<Map<String, String>> initialStudentsData = [
   {
     'name': 'Budi Santoso',
     'avatar': 'https://i.pravatar.cc/150?img=1',

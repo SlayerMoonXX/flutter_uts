@@ -1,42 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_uts/theme/app_colors.dart';
 import 'package:flutter_uts/theme/app_typography.dart';
 import 'package:flutter_uts/data/app_data.dart';
 
-void main() {
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-    ),
-  );
-  runApp(const StudentDirectoryApp());
-}
-
-class StudentDirectoryApp extends StatelessWidget {
-  const StudentDirectoryApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: AppColors.background,
-      ),
-      home: const StudentDirectoryPage(),
-    );
-  }
-}
-
-class StudentDirectoryPage extends StatelessWidget {
+class StudentDirectoryPage extends StatefulWidget {
   const StudentDirectoryPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final students = initialStudentsData;
+  State<StudentDirectoryPage> createState() => _StudentDirectoryState();
+}
 
+class _StudentDirectoryState extends State<StudentDirectoryPage> {
+  @override
+  Widget build(BuildContext context) {
+    var students = initialStudentsData;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -67,17 +44,23 @@ class StudentDirectoryPage extends StatelessWidget {
                     crossAxisCount: 2,
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
-                    childAspectRatio: 0.76,
+                    childAspectRatio: 0.68,
                   ),
                   itemBuilder: (context, index) {
                     final student = students[index];
                     return GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(
+                      onTap: () async {
+                        final result = await Navigator.pushNamed(
                           context,
                           "/profile",
                           arguments: index,
                         );
+                        //Klo student dihapus
+                        if (result == true) {
+                          setState(() {
+                            students = List.from(initialStudentsData);
+                          });
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(
