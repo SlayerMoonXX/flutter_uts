@@ -48,7 +48,7 @@ class StudentDirectoryPage extends StatelessWidget {
 
               Row(
                 children: [
-                  Icon(Icons.school, color:AppColors.textPrimary, size: 32),
+                  Icon(Icons.school, color: AppColors.textPrimary, size: 32),
                   SizedBox(width: 14),
                   Text(
                     'Student Directory',
