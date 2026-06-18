@@ -57,10 +57,8 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
                           "/profile",
                           arguments: index,
                         );
-                        // Kalau student dihapus dari halaman profile
                         if (result == true) {
                           setState(() {
-                            // UI akan di-render ulang dengan data terbaru
                             students = List.from(initialStudentsData);
                           });
                         }
@@ -153,16 +151,11 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
             width: 64,
             height: 64,
             child: FloatingActionButton(
-              // 👇 UBAH FUNGSI INI MENJADI ASYNC
               onPressed: () async {
-                // 1. Tunggu data kembalian dari halaman Add Student
                 final result = await Navigator.pushNamed(context, "/add_student");
 
-                // 2. Cek jika result tidak null (artinya user menekan tombol Tambah, bukan tombol Back)
                 if (result != null) {
                   setState(() {
-                    // 3. Masukkan data ke dalam list global initialStudentsData.
-                    // Karena AddStudentPage me-return object 'Student', kita ekstrak menjadi bentuk Map.
                     initialStudentsData.add({
                       'name': (result as dynamic).name,
                       'avatar': (result as dynamic).avatar,
@@ -170,9 +163,9 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
                       'phone': (result as dynamic).phone,
                     });
                   });
-                  
-                  // Opsional: Tampilkan notifikasi sukses
-                  if (context.mounted) {
+                }
+
+                if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('${(result as dynamic).name} berhasil ditambahkan!'),
@@ -181,8 +174,8 @@ class _StudentDirectoryState extends State<StudentDirectoryPage> {
                       ),
                     );
                   }
-                }
               },
+              
               backgroundColor: AppColors.greenPrimary,
               elevation: 0,
               shape: RoundedRectangleBorder(
