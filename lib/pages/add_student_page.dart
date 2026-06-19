@@ -71,14 +71,16 @@ class _AddStudentPageState extends State<AddStudentPage> {
                 color: AppColors.greenPrimary,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+              child: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: 20,
+              ),
             ),
           ),
           title: Text(
             'Tambah Mahasiswa',
-            style: AppTypography.headlineBold.copyWith(
-              color: Colors.white,
-            ),
+            style: AppTypography.headlineBold.copyWith(color: Colors.white),
           ),
         ),
         body: SingleChildScrollView(
@@ -164,11 +166,14 @@ class _AddStudentPageState extends State<AddStudentPage> {
                           suffixIcon: Icons.phone_outlined,
                           keyboardType: TextInputType.phone,
                           inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
+                            FilteringTextInputFormatter.digitsOnly,
                           ],
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Mohon masukkan nomor telepon';
+                            }
+                            if (value.length < 11) {
+                              return 'Nomor Telepon Tidak Valid';
                             }
                             return null;
                           },
@@ -177,8 +182,9 @@ class _AddStudentPageState extends State<AddStudentPage> {
 
                         // Consent checkbox
                         GestureDetector(
-                          onTap: () =>
-                              setState(() => _consentChecked = !_consentChecked),
+                          onTap: () => setState(
+                            () => _consentChecked = !_consentChecked,
+                          ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -188,7 +194,8 @@ class _AddStudentPageState extends State<AddStudentPage> {
                                 child: Checkbox(
                                   value: _consentChecked,
                                   onChanged: (val) => setState(
-                                      () => _consentChecked = val ?? false),
+                                    () => _consentChecked = val ?? false,
+                                  ),
                                   activeColor: AppColors.bluePrimary,
                                   checkColor: Colors.white,
                                   side: const BorderSide(
@@ -263,9 +270,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
   Widget _buildLabel(String text) {
     return Text(
       text,
-      style: AppTypography.textSemiBold.copyWith(
-        color: AppColors.textPrimary,
-      ),
+      style: AppTypography.textSemiBold.copyWith(color: AppColors.textPrimary),
     );
   }
 
@@ -284,11 +289,14 @@ class _AddStudentPageState extends State<AddStudentPage> {
       builder: (FormFieldState<String> state) {
         return TextField(
           controller: controller,
-          style: AppTypography.textRegular.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
+          style: AppTypography.textRegular.copyWith(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.bold,
+          ),
           keyboardType: keyboardType,
           inputFormatters: inputFormatters,
           onChanged: (val) {
-            state.didChange(val); 
+            state.didChange(val);
           },
           decoration: InputDecoration(
             hintText: hintText,
@@ -298,21 +306,27 @@ class _AddStudentPageState extends State<AddStudentPage> {
             ),
             filled: true,
             fillColor: AppColors.background,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 14,
+            ),
             suffixIcon: Icon(
               suffixIcon,
               color: AppColors.textSecondary,
               size: 19,
             ),
-            
+
             // Icon Tanda Seru Merah saat Error
-// Icon Tanda Seru Merah saat Error
+            // Icon Tanda Seru Merah saat Error
             error: state.hasError
                 ? Transform.translate(
                     // 👇 Offset(X, Y)
                     // X = Geser kiri/kanan (Minus = Kiri, Positif = Kanan)
                     // Y = Geser atas/bawah (Minus = Atas, Positif = Bawah)
-                    offset: const Offset(-16.0, 0), // Contoh: Geser paksa 8 pixel ke kiri
+                    offset: const Offset(
+                      -16.0,
+                      0,
+                    ), // Contoh: Geser paksa 8 pixel ke kiri
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -338,7 +352,10 @@ class _AddStudentPageState extends State<AddStudentPage> {
             // Semua border diatur menjadi warna BIRU
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: AppColors.bluePrimary, width: 1.5),
+              borderSide: const BorderSide(
+                color: AppColors.bluePrimary,
+                width: 1.5,
+              ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
@@ -346,15 +363,24 @@ class _AddStudentPageState extends State<AddStudentPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: AppColors.bluePrimary, width: 1.5),
+              borderSide: const BorderSide(
+                color: AppColors.bluePrimary,
+                width: 1.5,
+              ),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: AppColors.redPrimary, width: 1.5),
+              borderSide: const BorderSide(
+                color: AppColors.redPrimary,
+                width: 1.5,
+              ),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: AppColors.redPrimary, width: 1.5),
+              borderSide: const BorderSide(
+                color: AppColors.redPrimary,
+                width: 1.5,
+              ),
             ),
           ),
         );
@@ -371,7 +397,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
         Icons.keyboard_arrow_down_rounded,
         color: AppColors.textSecondary,
       ),
-      
+
       // Menggunakan properti hint agar warnanya pasti berubah
       hint: const Text(
         'Pilih kota tempat tinggal',
@@ -384,8 +410,11 @@ class _AddStudentPageState extends State<AddStudentPage> {
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.background,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
+
         // Semua border diatur menjadi warna BIRU
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -397,7 +426,10 @@ class _AddStudentPageState extends State<AddStudentPage> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppColors.bluePrimary, width: 1.5),
+          borderSide: const BorderSide(
+            color: AppColors.bluePrimary,
+            width: 1.5,
+          ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -406,10 +438,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
         errorStyle: const TextStyle(color: AppColors.redPrimary, fontSize: 11),
       ),
       items: domisiliList
-          .map((d) => DropdownMenuItem(
-                value: d,
-                child: Text(d),
-              ))
+          .map((d) => DropdownMenuItem(value: d, child: Text(d)))
           .toList(),
       onChanged: (val) => setState(() => _selectedDomisili = val),
       validator: (value) {

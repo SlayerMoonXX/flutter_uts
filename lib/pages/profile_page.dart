@@ -153,6 +153,7 @@ class _ProfileState extends State<ProfilePage> {
             //Buton Hapus
             GestureDetector(
               onTap: () {
+                ScaffoldMessenger.of(context).clearSnackBars();
                 if (initialStudentsData.length <= 3) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
