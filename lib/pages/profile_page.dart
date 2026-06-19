@@ -36,7 +36,7 @@ class _ProfileState extends State<ProfilePage> {
           selectionColor: AppColors.textPrimary,
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.all(16),
         child: Column(
           children: [
